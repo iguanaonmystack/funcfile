@@ -22,9 +22,10 @@ def _import(filename):
     basenode.body = [fnode]
     ast.fix_missing_locations(basenode)
 
+    namespace = {}
     code = compile(basenode, filename=filename, mode='exec')
-    exec(code)
-    return locals()[funcname]
+    exec(code, namespace)
+    return namespace[funcname]
     
 
 f = _import('testfunc.py')
